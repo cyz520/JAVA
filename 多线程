@@ -1,0 +1,8 @@
+线程组的异常捕获顺序：
+  1、如果线程自身有进行过setUncaughtExceptionHandler,则使用自己设置的按个。
+  2、如果没设置过，则看一下没有线程组。并按照以下逻辑判断:
+    如果线程组有覆写过uncaughtException，则用覆写过的uncaughtException
+    如果线程组没有覆写过，则去找父线程组（注意是构造体上的概念）的uncaughtException方法。
+  3、如果线程组以及父类都没覆写过uncaughtException， 则判断是否用Thread.setDefaultUncaughtExceptionHandler(xxx)去设置全局的默认捕捉器，有的话则用全局默认
+  4、如果不是ThreadDeath线程， 则只打印堆栈。
+  5、如果是ThreadDeath线程，那么就什么也不处理。
