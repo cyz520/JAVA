@@ -1,0 +1,6 @@
+Selector支持注册哪种类型的通道？
+A：
+  支持非阻塞的通道。
+  通道要在注册前调用 channel.configureBlocking(false) 设置为非阻塞。
+  例如FileChannel就没办法注册，他注定是阻塞的。
+  而socketChannel就可以支持非阻塞。
