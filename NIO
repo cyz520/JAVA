@@ -4,3 +4,13 @@ A：
   通道要在注册前调用 channel.configureBlocking(false) 设置为非阻塞。
   例如FileChannel就没办法注册，他注定是阻塞的。
   而socketChannel就可以支持非阻塞。
+
+select()方法其实是阻塞方法，即调用时会进入等待，直到把所有通道都轮询完毕。如果希望提前结束select()，有哪些方法？
+A：
+  有2个办法：
+  wakeup()， 调用后，select（）方法立刻返回。
+  close()， 直接关闭selector。
+
+PS: 之前说NIO是非阻塞IO，但为什么上面却说select()方法是阻塞的？
+  其实NIO的非阻塞，指的是IO不阻塞，即我们不会卡在read()处，我们会用selector去查询就绪状态，如果状态ok就。
+  而查询操作是需要时间，因此select()必须要把所有通道都检查一遍才能告诉结果，因此select这个查询操作是阻塞的。
