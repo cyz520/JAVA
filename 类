@@ -1,0 +1,55 @@
+1、各修饰符所代表的可见性？
+  public: 可被所有使用
+  protect： 只能被自己和子类使用，或者同一个包路径
+  private： 只能自己使用，儿子都不行
+  不加修饰符即default权限： 包访问权限，和他在同一包内的类都可以访问他，包外的则都不能访问
+
+2、class A{
+      public String name = "A";
+   }
+   class B extends A {
+      public String name = "B";
+   }
+   public static void main() {
+      A a = new B();
+      System.out.println(a.name);
+   }
+   输出：A
+   成员变量是静态分派，定义的是A,赋值的是B，输出的依旧是A里的成员。
+
+3、
+  void test() {
+    Father father = new Son();
+    father.name();
+  }
+  class Father {
+    void name() {
+      System.out.println("father");
+    }
+  }
+  class Son extends Father {
+    void name() {
+      System.out.println("son");
+    }
+  }
+  输出：son
+  属于动态分派
+  运行的时候根据所指向具体对象才能确定调用哪个方法。
+
+4、
+  void test() {
+      Father father = new Son();
+      print(father);
+  }
+  void print(Father father) {
+      System.out.println("this is father");
+  }
+  void print(Son son) {
+      System.out.println("this is son");
+  }
+  输出：this is father
+  属于静态分派。
+  静态分派概念：编译器就能够确定调用哪个方法。
+    例如 A a = Favtory.create(args);
+    左边的A就是静态类型，而右边的类型取决于运行期，是不确定的。
+
